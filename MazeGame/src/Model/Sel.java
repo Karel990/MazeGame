@@ -64,26 +64,10 @@ public class Sel {
         }
     }
     /**
-     * Fungsi untuk menggeser sel ke kanan
-     */
-    public void geserKanan() {
-        if (isBatasKanan() == false) {
-            kolom++;
-        }
-    }
-    /**
-     * Fungsi untuk menggeser sel ke kanan
-     */
-    public void geserKiri() {
-        if (isBatasKiri() == false) {
-            kolom--;
-        }
-    }
-    /**
      * Fungsi untuk mengecek sel ada di batas atas
      */
     public boolean isBatasAtas() {
-        if (baris * lebar <= 0) {
+        if (baris * tinggi <= 0) {
             return true;
         } else {
             return false;
@@ -93,7 +77,7 @@ public class Sel {
      * Fungsi untuk mengecek sel ada di batas bawah
      */
     public boolean isBatasBawah() {
-        if (baris * lebar + lebar < Tempat.batasKanan) {
+        if (baris * tinggi + tinggi < Tempat.batasBawah) {
             return false;
         } else {
             return true;
@@ -102,17 +86,46 @@ public class Sel {
     /**
      * Fungsi untuk menggeser sel ke kanan
      */
-    public void geserAtas() {
-        if (isBatasAtas()== false) {
-            baris--;
+    public void geserKanan(int x) {
+        if (isBatasKanan() == false) {
+            int nx = this.getKolom() + x;
+            int ny = this.getBaris();
+            this.setKolom(nx);
+            this.setBaris(ny);
         }
     }
     /**
      * Fungsi untuk menggeser sel ke kanan
      */
-    public void geserBawah() {
-        if (isBatasBawah()== false) {
-            baris++;
+    public void geserKiri(int x) {
+        if (isBatasKiri() == false) {
+            int nx = this.getKolom() - x;
+            int ny = this.getBaris();
+            this.setKolom(nx);
+            this.setBaris(ny);
+        }
+    }
+    
+    /**
+     * Fungsi untuk menggeser sel ke kanan
+     */
+    public void geserAtas(int x) {
+        if (isBatasAtas() == false) {
+            int nx = this.getKolom();
+            int ny = this.getBaris() - x;
+            this.setKolom(nx);
+            this.setBaris(ny);
+        }
+    }
+    /**
+     * Fungsi untuk menggeser sel ke kanan
+     */
+    public void geserBawah(int x) {
+       if (isBatasBawah() == false) {
+            int nx = this.getKolom();
+            int ny = this.getBaris() + x;
+            this.setKolom(nx);
+            this.setBaris(ny);
         }
     }
     /**

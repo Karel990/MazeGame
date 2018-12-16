@@ -12,16 +12,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.FileOutputStream;
 /**
  *
  * @author admin
  */
 public class Tempat {
-    private int tinggi; // tinggi tempat Game
-    private int lebar;  // lebar tempat Game
-    private ArrayList<Sel> daftarSel; // daftar sel
+    private int tinggi; 
+    private int lebar;
+    private ArrayList<Sel> daftarSel;
 
-    private String isi; // isi file konfigurasi
+    private String isi;
     
     public static int batasKanan;
     public static int batasBawah;
@@ -29,9 +30,6 @@ public class Tempat {
     public Tempat() {
         daftarSel = new ArrayList<Sel>();
     }
-    
-    
-    
     /**
      * Fungsi pembaca file konfigurasi.
      * Hasil pembacaan file akan disimpan di atribut 'isi' dan juga di atribut daftarSel
@@ -44,8 +42,8 @@ public class Tempat {
             int dataInt;
             int baris = 0;
             int kolom = 0;
-            int t = 50;
-            int l = 50;
+            int t = 40;
+            int l = 40;
 
             while ((dataInt = fis.read()) != -1) {
                 if ((char) dataInt != '\n') {
@@ -53,7 +51,7 @@ public class Tempat {
                         hasilBaca = hasilBaca + (char) dataInt;
                         Sel sel = new Sel();
                         sel.setNilai((char) dataInt);
-                        sel.setWarna(Color.white);
+                        sel.setWarna(Color.black);
                         sel.setBaris(baris);
                         sel.setKolom(kolom);
                         sel.setTinggi(t);
@@ -64,7 +62,7 @@ public class Tempat {
                         hasilBaca = hasilBaca + (char) dataInt;
                         Sel sel = new Sel();
                         sel.setNilai((char) dataInt);
-                        sel.setWarna(Color.red);
+                        sel.setWarna(Color.white);
                         sel.setBaris(baris);
                         sel.setKolom(kolom);
                         sel.setTinggi(t);
@@ -75,7 +73,7 @@ public class Tempat {
                         hasilBaca = hasilBaca + (char) dataInt;
                         Sel sel = new Sel();
                         sel.setNilai((char) dataInt);
-                        sel.setWarna(Color.BLUE);
+                        sel.setWarna(Color.red);
                         sel.setBaris(baris);
                         sel.setKolom(kolom);
                         sel.setTinggi(t);
@@ -86,7 +84,7 @@ public class Tempat {
                         hasilBaca = hasilBaca + (char) dataInt;
                         Sel sel = new Sel();
                         sel.setNilai((char) dataInt);
-                        sel.setWarna(Color.GRAY);
+                        sel.setWarna(Color.orange);
                         sel.setBaris(baris);
                         sel.setKolom(kolom);
                         sel.setTinggi(t);
@@ -104,6 +102,17 @@ public class Tempat {
             this.setIsi(hasilBaca);
      }  catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+     } catch (IOException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+     }
+     }
+     public void simpanKonfigurasi(File file) {
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(isi.getBytes());
+            fos.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -115,7 +124,15 @@ public class Tempat {
     public void tambahSel(Sel sel){
         daftarSel.add(sel);
     }
-
+    /**
+     * Fungsi hapus sel
+     * @param sel 
+     */
+    public void hapusSel(Sel sel){
+        if (!daftarSel.isEmpty()) {
+            daftarSel.remove(sel);
+        }
+    }
     /**
      * @return the tinggi
      */
@@ -170,5 +187,5 @@ public class Tempat {
      */
     public void setIsi(String isi) {
         this.isi = isi;
-    }
+    } 
 }
